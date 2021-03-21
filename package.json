@@ -1,0 +1,30 @@
+{
+  "name": "api-twitter",
+  "version": "1.0.0",
+  "description": "Proyecto para bloque 3 de pruebas Elogia",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jesusgonzalezfernandez/HAB-Project.git"
+  },
+  "dependencies": {
+    "axios": "0.21.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "mysql2": "^2.2.5",
+    "needle": "^2.6.0",
+    "twit": "^2.2.11"
+  },
+  "author": "Jesus Gonzalez Fernandez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jesusgonzalezfernandez/HAB-Project/issues"
+  },
+  "homepage": "https://github.com/jesusgonzalezfernandez/HAB-Project#readme"
+}
