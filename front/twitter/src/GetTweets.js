@@ -1,12 +1,54 @@
 import Moment from 'react-moment';
 import { useEffect, useState } from 'react';
 import './GetTweets.css'
-import Charts from './Charts'
+import { Bar } from 'react-chartjs-2'
+import {Doughnut} from 'react-chartjs-2';
+
 
 function GetTweets() {
 
     const [data, setData] = useState([])
+    const english = data.filter(e => e.lang === 'en')
+    const spanish = data.filter(e => e.lang === 'es')
+    const portuguese = data.filter(e => e.lang === 'pt')
+    const french = data.filter(e => e.lang === 'fr')
+    const italian = data.filter(e => e.lang === 'it')
+    const retweet = data.filter(r => r.retweeted === true)
+    const notretweet = data.filter(r => r.retweeted === false)
+    console.log(notretweet.length)
 
+    const info = {
+        labels: ['Inglés', 'Español', 'Portugués', 'Francés', 'Italiano'],
+        datasets: [
+            {
+                label: 'Tweets por lenguaje',
+                backgroundColor: 'rgba(155,89,12,0.8)',
+                data: [english.length, spanish.length, portuguese.length, french.length, italian.length]
+            }
+        ]
+    }
+
+    const donut = {
+        labels: ['Sí', 'No'],
+        datasets: [{
+            data: [retweet.length, notretweet.length],
+            backgroundColor: [
+                '#FF6384',
+                '#36A2EB',
+                ],
+                hoverBackgroundColor: [
+                '#FF6384',
+                '#36A2EB',
+                ]
+        }]
+    }
+
+    const VerticalBar = () => (
+        <div><Bar
+            data={info}
+            />
+            </div>
+    )
 
     useEffect(() => {
         async function fetchData() {
@@ -19,16 +61,15 @@ function GetTweets() {
                 })
             const data = await res.json()
             setData(data.statuses)
-            console.log(data.statuses[0].text)
         }
         fetchData()
-    }, [data])
+    }, [])
 
     if (!data) return 'Cargando'
 
     return (
         <main className="tweet main" key={data.id}>
-            {data.length >=1 &&
+            {data.length >= 1 &&
                 <div>
                     <div>
                         <div className="tweet-card">
@@ -66,7 +107,8 @@ function GetTweets() {
                             </div>
                         }
                     </div>
-                    <div><Charts></Charts></div>
+                    <VerticalBar/>
+                    <Doughnut data={donut} />
                 </div>
             }
         </main>

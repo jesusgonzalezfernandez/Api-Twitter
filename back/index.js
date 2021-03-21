@@ -43,8 +43,7 @@ app.get ('/tweets', (req, res) => {
                 async function main() {
                     let connection;
             
-                    // try {
-                    //     connection = await getConnection();
+                        // connection = await getConnection();
             
                         const query =
                             `INSERT INTO tweets (author, message) VALUES (?, ?)`
