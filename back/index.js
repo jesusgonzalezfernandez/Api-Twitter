@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express')
 const app = express()
-// const config = require('./config')
 const Twit = require ('twit');
 const { getConnection } = require("./db");
 
@@ -37,17 +36,17 @@ app.get ('/tweets', (req, res) => {
     T.get('search/tweets', { q: '#covid', count: 100 }, function async (err, data, response) {
         for (i = 0; i < data.statuses.length; i++) {
             const author = data.statuses[i].user.name
-                console.log(author)
             const message = data.statuses[i].text
-                console.log(message)
+            const date = data.statuses[i].created_at
+
                 async function main() {
                     let connection;
             
                         // connection = await getConnection();
             
                         const query =
-                            `INSERT INTO tweets (author, message) VALUES (?, ?)`
-                        const params = [author, message]
+                            `INSERT INTO tweets (author, message, date) VALUES (?, ?)`
+                        const params = [author, message, date]
                         
                         await performQuery(query, params)
                 }
