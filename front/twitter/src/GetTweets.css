@@ -1,15 +1,45 @@
+* {
+    font-size: 16px;
+}
+h2 {
+    font-size: 28px;
+    background-color: rgba(139, 182, 89, 0.445);
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
+}
+
 .tweet-box {
-    border: 1px black solid;
-    width: 800px;
+    border: 1px rgba(0, 0, 0, 0.219) solid;
+    width: 70vw;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .tweet-box-header {
-    background-color: aquamarine;
+    background-color: rgba(89, 122, 182, 0.445);
+}
+
+.tweet-box-author {
+    width: 220px;
 }
 
 .tweet-card {
-    border: 1px solid grey;
+    border: 1px solid rgb(173, 157, 157);
     border-radius: 25px;
     margin: 15px;
-    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tweet-card-author {
+    background-color: rgba(89, 122, 182, 0.445);
+    border-radius: 25px 25px 0px 0px;
+}
+
+.tweet-card-message {
+    padding: 20px;
 }

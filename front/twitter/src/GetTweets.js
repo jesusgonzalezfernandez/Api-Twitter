@@ -1,13 +1,15 @@
 import Moment from 'react-moment';
+import 'moment/locale/es';
 import { useEffect, useState } from 'react';
 import './GetTweets.css'
 import { Bar } from 'react-chartjs-2'
-import {Doughnut} from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 
 function GetTweets() {
 
     const [data, setData] = useState([])
+    // Configuración de los gráficos
     const english = data.filter(e => e.lang === 'en')
     const spanish = data.filter(e => e.lang === 'es')
     const portuguese = data.filter(e => e.lang === 'pt')
@@ -15,7 +17,6 @@ function GetTweets() {
     const italian = data.filter(e => e.lang === 'it')
     const retweet = data.filter(r => r.retweeted === true)
     const notretweet = data.filter(r => r.retweeted === false)
-    console.log(notretweet.length)
 
     const info = {
         labels: ['Inglés', 'Español', 'Portugués', 'Francés', 'Italiano'],
@@ -35,21 +36,14 @@ function GetTweets() {
             backgroundColor: [
                 '#FF6384',
                 '#36A2EB',
-                ],
-                hoverBackgroundColor: [
+            ],
+            hoverBackgroundColor: [
                 '#FF6384',
                 '#36A2EB',
-                ]
+            ]
         }]
     }
-
-    const VerticalBar = () => (
-        <div><Bar
-            data={info}
-            />
-            </div>
-    )
-
+    // Recibir datos de la api
     useEffect(() => {
         async function fetchData() {
             // Enviar consulta a la API
@@ -68,27 +62,41 @@ function GetTweets() {
     if (!data) return 'Cargando'
 
     return (
-        <main className="tweet main" key={data.id}>
+        <main className="tweet-main" key={data.id}>
             {data.length >= 1 &&
                 <div>
                     <div>
+                        <h2>Tweets más recientes:</h2>
                         <div className="tweet-card">
-                            {data[0].user.name}
-                            {data[0].text}
+                            <span className="tweet-card-author">
+                                <p>{data[0].user.name} ha twitteado <Moment fromNow>{data.created_at}</Moment>:</p>
+                            </span>
+                            <span className="tweet-card-message">
+                                {data[0].text}
+                            </span>
                         </div>
                         <div className="tweet-card">
-                            {data[1].user.name}
-                            {data[1].text}
+                            <span className="tweet-card-author">
+                                <p>{data[1].user.name} ha twitteado <Moment fromNow>{data.created_at}</Moment>:</p>
+                            </span>
+                            <span className="tweet-card-message">
+                                {data[1].text}
+                            </span>
                         </div>
                         <div className="tweet-card">
-                            {data[2].user.name}
-                            {data[2].text}
+                            <span className="tweet-card-author">
+                                <p>{data[2].user.name}ha twitteado <Moment fromNow>{data.created_at}</Moment>:</p>
+                            </span>
+                            <span className="tweet-card-message">
+                                {data[2].text}
+                            </span>
                         </div>
                     </div>
                     <div>
                         {data &&
                             <div>
                                 <div className="get-tweets">
+                                    <h2>Últimos 100 tweets:</h2>
                                     {data.map(tweet =>
                                         <table className="tweet-box">
                                             <tr className="tweet-box-header">
@@ -98,7 +106,7 @@ function GetTweets() {
                                             </tr>
                                             <tr className="tweet-content">
                                                 <td><Moment format='DD/MM/YYYY'>{tweet.created_at}</Moment></td>
-                                                <td> {tweet.user.name}</td>
+                                                <td className="tweet-box-author"> {tweet.user.name}</td>
                                                 <td>{tweet.text}</td>
                                             </tr>
                                         </table>
@@ -107,8 +115,9 @@ function GetTweets() {
                             </div>
                         }
                     </div>
-                    <VerticalBar/>
-                    <Doughnut data={donut} />
+                    <h2>Gráficos:</h2>
+                    <Bar data={info} />
+                    <h5>Tweets retweetados<Doughnut data={donut} /></h5>
                 </div>
             }
         </main>
