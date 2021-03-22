@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express')
 const app = express()
 const Twit = require ('twit');
+const moment = require('moment');
 const { getConnection } = require("./db");
 
 app.use(require('cors')());
@@ -37,7 +38,6 @@ app.get ('/tweets', (req, res) => {
         for (i = 0; i < data.statuses.length; i++) {
             const author = data.statuses[i].user.name
             const message = data.statuses[i].text
-            const date = data.statuses[i].created_at
 
                 async function main() {
                     let connection;
@@ -45,8 +45,8 @@ app.get ('/tweets', (req, res) => {
                         // connection = await getConnection();
             
                         const query =
-                            `INSERT INTO tweets (author, message, date) VALUES (?, ?)`
-                        const params = [author, message, date]
+                            `INSERT INTO tweets (author, message) VALUES (?, ?)`
+                        const params = [author, message]
                         
                         await performQuery(query, params)
                 }

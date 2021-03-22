@@ -19,7 +19,7 @@ async function main() {
     
     
                 await connection.query(
-                    `insert into tweets (author, message, date) values (?, ?, ?)`,
+                    `insert into tweets (author, message) values (?, ?)`,
                 )
             } catch (e) {
                 console.log('Some error ocurred:', e)
